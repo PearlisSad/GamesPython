@@ -41,7 +41,7 @@ def draw(canvas):
 
 
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
-frame.set_canvas_background('#2C6A6A')
+frame.set_canvas_background('#bfcf46')
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(kbd.keyDown)
 frame.set_keyup_handler(kbd.keyUp)
