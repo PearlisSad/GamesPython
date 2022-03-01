@@ -23,7 +23,7 @@ class Wheel:
 
     def draw(self, canvas):
         canvas.draw_image(IMG, IMG_CENTRE, IMG_DIMS, self.pos.get_p(),
-                          (self.radius*2, self.radius*2))
+                          (self.radius*2, self.radius))
 
     def update(self):
         self.pos.add(self.vel)
