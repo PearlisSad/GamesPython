@@ -3,8 +3,10 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
+import random
 from VectorClass.vectorClass import Vector
-from ball import Keyboard, Wheel
+from ball import Keyboard, Wheel , Platform
+
 
 CANVAS_DIMS = (800, 600)
 space_timer = 0
@@ -27,22 +29,42 @@ class Interaction:
                 self.wheel.vel.y -= 5
                 space_timer = 0
 
+    def draw(self, canvas):
+        self.update()
+        wheel.update()
+        wheel.on_ground()
+        wheel.draw(canvas)
+        platform.draw(canvas)
+        platform.update()
+
+
+def randomPlatform():
+    lenght = random.randint(25,100)
+    y1 = random.randint(5, CANVAS_DIMS[1]-30)
+    y2 = y1 + lenght
+    return (y1, y2)
+
+
+
 
 kbd = Keyboard()
 wheel = Wheel(Vector(CANVAS_DIMS[1] / 2.7, CANVAS_DIMS[0]), 40)
 inter = Interaction(wheel, kbd)
 
+print(randomPlatform())
+platform = Platform("horizontal", randomPlatform())
 
-def draw(canvas):
-    inter.update()
-    wheel.update()
-    wheel.on_ground()
-    wheel.draw(canvas)
+
+# def draw(canvas):
+#     inter.update()
+#     wheel.update()
+#     wheel.on_ground()
+#     wheel.draw(canvas)
 
 
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
 frame.set_canvas_background('#bfcf46')
-frame.set_draw_handler(draw)
+frame.set_draw_handler(inter.draw)
 frame.set_keydown_handler(kbd.keyDown)
 frame.set_keyup_handler(kbd.keyUp)
 frame.start()

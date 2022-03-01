@@ -1,11 +1,11 @@
-try:
-    import simplegui
-except ImportError:
-    import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
-import random
+#try:
+    #import simplegui
+#except ImportError:
+    #import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
+#import random
 from VectorClass.vectorClass import Vector
 
-CANVAS_DIMS = (800, 600)
+#CANVAS_DIMS = (800, 600)
 
 class Platform:
     def __init__(self, platform):
@@ -13,14 +13,13 @@ class Platform:
         self.velocity = Vector(1,0)
 
     def draw(self, canvas):
-        #canvas.draw_line(platform)
+        canvas.draw_line(self.platform.x, self.platform.y, 10, 'Red')
 
-def randomVerticalPlatform():
-    lenght = random.randint(15,25)
-    y1 = random.randint(5, CANVAS_DIMS[1]-30)
-    y2 = y1 + lenght
-    return(Vector((CANVAS_DIMS[0]+10,y1),(CANVAS_DIMS[0]+10,y2)))
+    def update(self):
+        self.platform.x[0] -= 1
+        self.platform.y[0] -= 1
 
+#
 
 
 

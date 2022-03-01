@@ -49,3 +49,22 @@ class Keyboard:
     def keyUp(self, key):
         if key == simplegui.KEY_MAP['space']:
             self.space = False
+
+class Platform:
+    def __init__(self, orientation, dimentions):
+        self.orientation = orientation
+        self.dimentions = dimentions
+        self.x = CANVAS_DIMS[0]
+        self.ball_list = []
+        self.to_delete = []
+
+    def draw(self, canvas):
+        if self.orientation == "verticle":
+            canvas.draw_line((self.x, self.dimentions[0]), (self.x, self.dimentions[1]), 10, 'Red')
+        elif self.orientation == "horizontal":
+            canvas.draw_line((self.x, self.dimentions[0]), (self.x + self.dimentions[0] , self.dimentions[0]), 10, 'Red')
+
+        self.x -= 3
+    def update(self):
+        return None
+
