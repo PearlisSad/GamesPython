@@ -5,17 +5,18 @@ except ImportError:
 
 import random
 from VectorClass.vectorClass import Vector
-from ball import Keyboard, Wheel , Platform
+from ball import Keyboard, Wheel, Platform
 
-
-CANVAS_DIMS = (800, 600)
+CANVAS_DIMS = (800, 500)
 space_timer = 0
-
 
 class Interaction:
     def __init__(self, wheel, keyboard):
         self.wheel = wheel
         self.keyboard = keyboard
+        self.platform_list = []
+        self.to_delete = []
+        self.platform_count = 0
 
     def update(self):
         if self.keyboard.space and wheel.on_ground():
@@ -31,18 +32,35 @@ class Interaction:
 
     def draw(self, canvas):
         self.update()
+        self.delete()
         wheel.update()
         wheel.on_ground()
         wheel.draw(canvas)
-        platform.draw(canvas)
-        platform.update()
+        print(len(self.platform_list))
+        #print(len(self.to_delete))
+        for platform in self.platform_list:
+            platform.draw(canvas)
+            if platform.x < -platform.dimentions[2]:
+                self.to_delete.append(platform)
+
+    def delete(self):
+        for platform in self.to_delete:
+            self.to_delete.remove(platform)
+            self.platform_list.remove(platform)
+
+    def add_platform(self):
+        if self.platform_count % 4 == 0:
+            self.platform_list.append(Platform("vertical", randomPlatform()))
+        else:
+            self.platform_list.append(Platform("horizontal", randomPlatform()))
+        self.platform_count+=1
 
 
 def randomPlatform():
-    lenght = random.randint(25,100)
+    lenght = random.randint(100,200)
     y1 = random.randint(5, CANVAS_DIMS[1]-30)
     y2 = y1 + lenght
-    return (y1, y2)
+    return (y1, y2, lenght)
 
 
 
@@ -67,4 +85,6 @@ frame.set_canvas_background('#bfcf46')
 frame.set_draw_handler(inter.draw)
 frame.set_keydown_handler(kbd.keyDown)
 frame.set_keyup_handler(kbd.keyUp)
+timer = simplegui.create_timer(2000, inter.add_platform)
+timer.start()
 frame.start()

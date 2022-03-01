@@ -5,7 +5,7 @@ except ImportError:
 
 from VectorClass.vectorClass import Vector
 
-CANVAS_DIMS = (800, 600)
+CANVAS_DIMS = (800, 500)
 
 IMG = simplegui.load_image(
     'http://www.cs.rhul.ac.uk/courses/CS1830/sprites/coach_wheel-512.png')
@@ -23,7 +23,7 @@ class Wheel:
 
     def draw(self, canvas):
         canvas.draw_image(IMG, IMG_CENTRE, IMG_DIMS, self.pos.get_p(),
-                          (self.radius*2, self.radius))
+                          (self.radius*2, self.radius*2))
 
     def update(self):
         self.pos.add(self.vel)
@@ -50,21 +50,21 @@ class Keyboard:
         if key == simplegui.KEY_MAP['space']:
             self.space = False
 
+
 class Platform:
     def __init__(self, orientation, dimentions):
         self.orientation = orientation
         self.dimentions = dimentions
         self.x = CANVAS_DIMS[0]
-        self.ball_list = []
-        self.to_delete = []
+
 
     def draw(self, canvas):
-        if self.orientation == "verticle":
+        if self.orientation == "vertical":
             canvas.draw_line((self.x, self.dimentions[0]), (self.x, self.dimentions[1]), 10, 'Red')
         elif self.orientation == "horizontal":
-            canvas.draw_line((self.x, self.dimentions[0]), (self.x + self.dimentions[0] , self.dimentions[0]), 10, 'Red')
-
+            canvas.draw_line((self.x, self.dimentions[0]), (self.x + self.dimentions[2], self.dimentions[0]), 10, 'Red')
         self.x -= 3
+
     def update(self):
         return None
 
