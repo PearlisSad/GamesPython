@@ -31,12 +31,16 @@ class Wheel:
         if self.on_ground():
             self.vel.y = 0
             self.pos.y = CANVAS_DIMS[1] - self.radius
+        elif self.on_top():
+            self.vel.y = 0
+            self.pos.y = self.radius
         else:
             self.vel.y += 0.5
 
     def on_ground(self):
         return self.pos.y >= CANVAS_DIMS[1] - self.radius
-
+    def on_top(self):
+        return self.pos.y <= self.radius
 
 class Keyboard:
     def __init__(self):

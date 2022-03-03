@@ -29,12 +29,13 @@ class Interaction:
             if space_timer > 10:
                 self.wheel.vel.y -= 5
                 space_timer = 0
+        if not self.keyboard.space and wheel.on_top():
+            self.wheel.vel.y = 1
 
     def draw(self, canvas):
         self.update()
         self.delete()
         wheel.update()
-        wheel.on_ground()
         wheel.draw(canvas)
         print(len(self.platform_list))
         #print(len(self.to_delete))
