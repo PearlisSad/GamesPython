@@ -44,9 +44,12 @@ class Wheel:
 
     def draw(self, canvas):
 <<<<<<< HEAD
+<<<<<<< HEAD
         canvas.draw_image(IMG, IMG_CENTRE, IMG_DIMS, self.pos.get_p(),
                           (self.radius*2, self.radius*2))
 =======
+=======
+>>>>>>> parent of ed2d146 (Revert "Merge remote-tracking branch 'origin/main'")
         source_centre = (
             self.frame_width * self.frame_index[0] + self.frame_centre_x,
             self.frame_height * self.frame_index[1] + self.frame_centre_y
@@ -63,6 +66,9 @@ class Wheel:
         self.frame_index[0] = (self.frame_index[0] + 1) % self.columns
         if self.frame_index[0] == 0:
             self.frame_index[1] = (self.frame_index[1] + 1) % self.rows
+<<<<<<< HEAD
+>>>>>>> parent of ed2d146 (Revert "Merge remote-tracking branch 'origin/main'")
+=======
 >>>>>>> parent of ed2d146 (Revert "Merge remote-tracking branch 'origin/main'")
 
     def update(self):
