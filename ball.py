@@ -5,7 +5,7 @@ except ImportError:
 
 from VectorClass.vectorClass import Vector
 
-CANVAS_DIMS = (800, 400)
+CANVAS_DIMS = (800, 500)
 
 IMG = simplegui.load_image(
     'http://www.cs.rhul.ac.uk/courses/CS1830/sprites/coach_wheel-512.png')
@@ -23,7 +23,7 @@ class Wheel:
 
     def draw(self, canvas):
         canvas.draw_image(IMG, IMG_CENTRE, IMG_DIMS, self.pos.get_p(),
-                          (self.radius*1.5, self.radius*1.5))
+                          (self.radius*2, self.radius*2))
 
     def update(self):
         self.pos.add(self.vel)
