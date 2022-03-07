@@ -5,10 +5,20 @@ except ImportError:
 
 import random
 from VectorClass.vectorClass import Vector
-from ball import Keyboard, Wheel, Platform
+from ball import Keyboard, Wheel, Platform, Clock
+
 
 CANVAS_DIMS = (800, 500)
+SHEET_IMG = "D:\GamesPython\Spritesheet.jpg"
+
+SHEET_WIDTH = 564
+SHEET_HEIGHT = 240
+
+SHEET_COLUMNS = 5
+SHEET_ROWS = 2
+
 space_timer = 0
+
 
 class Interaction:
     def __init__(self, wheel, keyboard):
@@ -37,8 +47,11 @@ class Interaction:
         self.delete()
         wheel.update()
         wheel.draw(canvas)
+        clock.tick()
+        if clock.transition(4):
+            wheel.frame_update()
         print(len(self.platform_list))
-        #print(len(self.to_delete))
+        # print(len(self.to_delete))
         for platform in self.platform_list:
             platform.draw(canvas)
             if platform.x < -platform.dimentions[2]:
@@ -54,20 +67,24 @@ class Interaction:
             self.platform_list.append(Platform("vertical", randomPlatform()))
         else:
             self.platform_list.append(Platform("horizontal", randomPlatform()))
-        self.platform_count+=1
+        self.platform_count += 1
 
 
 def randomPlatform():
-    lenght = random.randint(100,200)
+    lenght = random.randint(100, 200)
     y1 = random.randint(5, CANVAS_DIMS[1]-30)
     y2 = y1 + lenght
     return (y1, y2, lenght)
 
 
-
-
 kbd = Keyboard()
-wheel = Wheel(Vector(CANVAS_DIMS[1] / 2.7, CANVAS_DIMS[0]), 40)
+wheel = Wheel(
+    SHEET_IMG,
+    Vector(CANVAS_DIMS[1] / 2.7, CANVAS_DIMS[0]),
+    SHEET_WIDTH, SHEET_HEIGHT,
+    SHEET_COLUMNS, SHEET_ROWS,
+    40)
+clock = Clock()
 inter = Interaction(wheel, kbd)
 
 print(randomPlatform())
