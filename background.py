@@ -1,4 +1,3 @@
-import simplegui
 #"http://www.cs.rhul.ac.uk/courses/CS1830/sprites/runnerSheet.png"
 
 
