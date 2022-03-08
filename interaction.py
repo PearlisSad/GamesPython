@@ -6,17 +6,29 @@ except ImportError:
 import random
 from VectorClass.vectorClass import Vector
 from ball import Keyboard, Wheel, Platform
+from background import Background, Clock
 
 CANVAS_DIMS = (800, 500)
 space_timer = 0
+SHEET_URL = "https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
+SHEET_WIDTH = 11520#1440
+SHEET_HEIGHT = 5400#1480
+SHEET_COLUMNS = 6
+SHEET_ROWS = 5
+
+frame_duration=15 #frame duration = number of ticks the frame should show for
+time=0
+
 
 class Interaction:
-    def __init__(self, wheel, keyboard):
+    def __init__(self, wheel, keyboard,background,clock):
         self.wheel = wheel
         self.keyboard = keyboard
         self.platform_list = []
         self.to_delete = []
         self.platform_count = 0
+        self.background=background
+        self.clock=clock
 
     def update(self):
         if self.keyboard.space and wheel.on_ground():
@@ -31,12 +43,19 @@ class Interaction:
                 space_timer = 0
         if not self.keyboard.space and wheel.on_top():
             self.wheel.vel.y = 1
+        
+        self.clock.tick()
+        self.background.draw(canvas)  
+        if self.clock.transition(self.background.frame_duration):
+            self.background.next_frame() 
+
 
     def draw(self, canvas):
         self.update()
         self.delete()
         wheel.update()
         wheel.draw(canvas)
+        self.background.draw(canvas)
         print(len(self.platform_list))
         #print(len(self.to_delete))
         for platform in self.platform_list:
@@ -56,6 +75,8 @@ class Interaction:
             self.platform_list.append(Platform("horizontal", randomPlatform()))
         self.platform_count+=1
 
+        
+        
 
 def randomPlatform():
     lenght = random.randint(100,200)
@@ -68,7 +89,14 @@ def randomPlatform():
 
 kbd = Keyboard()
 wheel = Wheel(Vector(CANVAS_DIMS[1] / 2.7, CANVAS_DIMS[0]), 40)
-inter = Interaction(wheel, kbd)
+clock=Clock(time)
+sheet = Background(
+    SHEET_URL,
+    SHEET_WIDTH, SHEET_HEIGHT,
+    SHEET_COLUMNS, SHEET_ROWS,
+    frame_duration
+)
+inter = Interaction(wheel, kbd, sheet, clock)
 
 print(randomPlatform())
 platform = Platform("horizontal", randomPlatform())
