@@ -44,7 +44,7 @@ class Background():
                             dest_centre,
                             dest_size)
         
-class Clock():
+class ClockBackground():
     def __init__(self,time):
         self.time=time
         

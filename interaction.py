@@ -107,7 +107,7 @@ wheel = Wheel(
 clock = Clock()
 inter = Interaction(wheel, kbd)
 wheel = Wheel(Vector(CANVAS_DIMS[1] / 2.7, CANVAS_DIMS[0]), 40)
-clock=Clock(time)
+clock=ClockBackground(time)
 sheet = Background(
     SHEET_URL,
     SHEET_WIDTH, SHEET_HEIGHT,
