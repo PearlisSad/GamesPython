@@ -53,7 +53,7 @@ class Wheel:
         canvas.draw_image(
             self.img,
             source_centre, source_size, self.pos.get_p(),
-            (self.radius*2, self.radius*2))
+            (self.radius * 2, self.radius * 2))
 
     def frame_update(self):
         self.frame_index[0] = (self.frame_index[0] + 1) % self.columns

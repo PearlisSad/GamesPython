@@ -53,7 +53,7 @@ class ClockBackground():
         self.time = time
 
     def tick(self):
-        self.time = self.time+1
+        self.time = self.time + 1
 
     def transition(self, frame_duration):
         if self.time % frame_duration == 0:

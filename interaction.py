@@ -4,9 +4,9 @@ except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 import random
-from VectorClass.vectorClass import Vector
-from ball import *  # Keyboard, Wheel, Platform, Clock
+
 from background import *  # Background, ClockBackground
+from ball import *  # Keyboard, Wheel, Platform, Clock
 
 CANVAS_DIMS = (800, 400)
 SHEET_IMG = "D:\GamesPython\Spritesheet.png"
@@ -91,7 +91,7 @@ class Interaction:
 
 def randomPlatform():
     lenght = random.randint(100, 200)
-    y1 = random.randint(5, CANVAS_DIMS[1]-30)
+    y1 = random.randint(5, CANVAS_DIMS[1] - 30)
     y2 = y1 + lenght
     return (y1, y2, lenght)
 
@@ -124,6 +124,5 @@ frame.set_keydown_handler(kbd.keyDown)
 frame.set_keyup_handler(kbd.keyUp)
 timer = simplegui.create_timer(2000, inter.add_platform)
 timer.start()
-
 
 frame.start()
