@@ -5,7 +5,7 @@ except ImportError:
 
 from VectorClass.vectorClass import Vector
 
-CANVAS_DIMS = (800, 500)
+CANVAS_DIMS = (800, 400)
 
 SHEET_IMG = "D:\GamesPython\Spritesheet.jpg"
 

@@ -8,7 +8,7 @@ from VectorClass.vectorClass import Vector
 from ball import *  # Keyboard, Wheel, Platform, Clock
 from background import *  # Background, ClockBackground
 
-CANVAS_DIMS = (800, 500)
+CANVAS_DIMS = (800, 400)
 # "D:\GamesPython\Spritesheet.jpg"
 SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.jpg?raw=true"
 
