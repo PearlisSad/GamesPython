@@ -9,8 +9,8 @@ from ball import *  # Keyboard, Wheel, Platform, Clock
 from background import *  # Background, ClockBackground
 
 CANVAS_DIMS = (800, 400)
-# "D:\GamesPython\Spritesheet.jpg"
-SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"
+SHEET_IMG = "D:\GamesPython\Spritesheet.png"
+# "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet_bird.jpg?raw=true"
 
 SHEET_WIDTH = 564
 SHEET_HEIGHT = 240
