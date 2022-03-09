@@ -5,11 +5,12 @@ except ImportError:
 
 import random
 from VectorClass.vectorClass import Vector
-from ball import Keyboard, Wheel, Platform
-from background import Background, Clock
+from ball import *  # Keyboard, Wheel, Platform, Clock
+from background import *  # Background, ClockBackground
 
 CANVAS_DIMS = (800, 500)
-SHEET_IMG = "D:\GamesPython\Spritesheet.jpg"
+# "D:\GamesPython\Spritesheet.jpg"
+SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.jpg?raw=true"
 
 SHEET_WIDTH = 564
 SHEET_HEIGHT = 240
@@ -19,25 +20,25 @@ SHEET_ROWS = 2
 
 space_timer = 0
 SHEET_URL = "https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
-SHEET_WIDTH = 11520#1440
-SHEET_HEIGHT = 5400#1480
-SHEET_COLUMNS = 6
-SHEET_ROWS = 5
+BACK_WIDTH = 11520  # 1440
+BACK_HEIGHT = 5400  # 1480
+BACK_COLUMNS = 6
+BACK_ROWS = 5
 
-frame_duration=15 #frame duration = number of ticks the frame should show for
-time=0
-
+frame_duration = 15  # frame duration = number of ticks the frame should show for
+time = 0
 
 
 class Interaction:
-    def __init__(self, wheel, keyboard,background,clock):
+    def __init__(self, wheel, keyboard, background, clock, clock_background):
         self.wheel = wheel
         self.keyboard = keyboard
         self.platform_list = []
         self.to_delete = []
         self.platform_count = 0
-        self.background=background
-        self.clock=clock
+        self.background = background
+        self.clock = clock
+        self.clock_background = clock_background
 
     def update(self):
         if self.keyboard.space and wheel.on_ground():
@@ -52,18 +53,18 @@ class Interaction:
                 space_timer = 0
         if not self.keyboard.space and wheel.on_top():
             self.wheel.vel.y = 1
-        
-        self.clock.tick()
-        self.background.draw(canvas)  
-        if self.clock.transition(self.background.frame_duration):
-            self.background.next_frame() 
 
+        self.clock_background.tick()
+        if self.clock_background.transition(self.background.frame_duration):
+            self.background.next_frame()
 
     def draw(self, canvas):
+        self.background.draw(canvas)
         self.update()
         self.delete()
-        wheel.update()
-        wheel.draw(canvas)
+        self.wheel.update()
+        self.wheel.draw(canvas)
+
         clock.tick()
         if clock.transition(4):
             wheel.frame_update()
@@ -87,8 +88,6 @@ class Interaction:
             self.platform_list.append(Platform("horizontal", randomPlatform()))
         self.platform_count += 1
 
-        
-        
 
 def randomPlatform():
     lenght = random.randint(100, 200)
@@ -105,28 +104,19 @@ wheel = Wheel(
     SHEET_COLUMNS, SHEET_ROWS,
     40)
 clock = Clock()
-inter = Interaction(wheel, kbd)
-wheel = Wheel(Vector(CANVAS_DIMS[1] / 2.7, CANVAS_DIMS[0]), 40)
-clock=ClockBackground(time)
+
+clock_background = ClockBackground(time)
 sheet = Background(
     SHEET_URL,
-    SHEET_WIDTH, SHEET_HEIGHT,
-    SHEET_COLUMNS, SHEET_ROWS,
+    BACK_WIDTH, BACK_HEIGHT,
+    BACK_COLUMNS, BACK_ROWS,
     frame_duration
 )
-inter = Interaction(wheel, kbd, sheet, clock)
+
+inter = Interaction(wheel, kbd, sheet, clock, clock_background)
 
 print(randomPlatform())
 platform = Platform("horizontal", randomPlatform())
-
-
-# def draw(canvas):
-#     inter.update()
-#     wheel.update()
-#     wheel.on_ground()
-#     wheel.draw(canvas)
-
-
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
 frame.set_canvas_background('#bfcf46')
 frame.set_draw_handler(inter.draw)
@@ -134,4 +124,6 @@ frame.set_keydown_handler(kbd.keyDown)
 frame.set_keyup_handler(kbd.keyUp)
 timer = simplegui.create_timer(2000, inter.add_platform)
 timer.start()
+
+
 frame.start()
