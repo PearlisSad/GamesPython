@@ -7,9 +7,10 @@ import random
 
 from background import *  # Background, ClockBackground
 from ball import *  # Keyboard, Wheel, Platform, Clock
+from laser import Laser_spritesheet
 
 CANVAS_DIMS = (800, 400)
-SHEET_IMG = "D:\GamesPython\Spritesheet.png"
+SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"#"D:\GamesPython\Spritesheet.png"
 # "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet_bird.jpg?raw=true"
 
 SHEET_WIDTH = 564
@@ -19,7 +20,7 @@ SHEET_COLUMNS = 5
 SHEET_ROWS = 2
 
 space_timer = 0
-SHEET_URL = "https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
+SHEET_URL = "https://raw.githubusercontent.com/PearlisSad/GamesPython/aeebe682ce8a4c45eb1e982eed622973b5e06cda/backgroundSprite.png"#"https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
 BACK_WIDTH = 11520  # 1440
 BACK_HEIGHT = 5400  # 1480
 BACK_COLUMNS = 6
@@ -63,18 +64,19 @@ class Interaction:
         self.update()
         self.delete()
         self.wheel.update()
-        self.wheel.draw(canvas)
+
 
         clock.tick()
         if clock.transition(4):
             wheel.frame_update()
-        self.background.draw(canvas)
-        print(len(self.platform_list))
-        # print(len(self.to_delete))
         for platform in self.platform_list:
             platform.draw(canvas)
-            if platform.x < -platform.dimentions[2]:
+            if platform.dest_centre[0] < -200:
                 self.to_delete.append(platform)
+
+        self.wheel.draw(canvas)
+
+
 
     def delete(self):
         for platform in self.to_delete:
@@ -82,18 +84,11 @@ class Interaction:
             self.platform_list.remove(platform)
 
     def add_platform(self):
-        if self.platform_count % 4 == 0:
-            self.platform_list.append(Platform("vertical", randomPlatform()))
-        else:
-            self.platform_list.append(Platform("horizontal", randomPlatform()))
+        self.platform_list.append(Laser_spritesheet())
         self.platform_count += 1
 
 
-def randomPlatform():
-    lenght = random.randint(100, 200)
-    y1 = random.randint(5, CANVAS_DIMS[1] - 30)
-    y2 = y1 + lenght
-    return (y1, y2, lenght)
+
 
 
 kbd = Keyboard()
@@ -115,8 +110,6 @@ sheet = Background(
 
 inter = Interaction(wheel, kbd, sheet, clock, clock_background)
 
-print(randomPlatform())
-platform = Platform("horizontal", randomPlatform())
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
 frame.set_canvas_background('#bfcf46')
 frame.set_draw_handler(inter.draw)
