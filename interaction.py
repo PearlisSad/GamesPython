@@ -5,6 +5,7 @@ except ImportError:
 
 import random
 
+from VectorClass.vectorClass import Vector
 from background import *  # Background, ClockBackground
 from ball import *  # Keyboard, Wheel, Platform, Clock
 from laser import Laser_spritesheet
@@ -20,18 +21,17 @@ SHEET_COLUMNS = 5
 SHEET_ROWS = 2
 
 space_timer = 0
-SHEET_URL = "https://raw.githubusercontent.com/PearlisSad/GamesPython/aeebe682ce8a4c45eb1e982eed622973b5e06cda/backgroundSprite.png"#"https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
-BACK_WIDTH = 11520  # 1440
-BACK_HEIGHT = 5400  # 1480
-BACK_COLUMNS = 6
-BACK_ROWS = 5
 
-frame_duration = 15  # frame duration = number of ticks the frame should show for
-time = 0
+background_img = simplegui.load_image(
+    'https://cdn.discordapp.com/attachments/932691213721694358/951996954848661504/backgroundSmaller.png')
+background_centre = (800, 200)
+background_dims = (1600, 400)
+background_reset = Vector(800, 200)
+background_counter = 0
 
 
 class Interaction:
-    def __init__(self, wheel, keyboard, background, clock, clock_background):
+    def __init__(self, wheel, keyboard, background, clock):
         self.wheel = wheel
         self.keyboard = keyboard
         self.platform_list = []
@@ -39,7 +39,6 @@ class Interaction:
         self.platform_count = 0
         self.background = background
         self.clock = clock
-        self.clock_background = clock_background
 
     def update(self):
         if self.keyboard.space and wheel.on_ground():
@@ -55,16 +54,11 @@ class Interaction:
         if not self.keyboard.space and wheel.on_top():
             self.wheel.vel.y = 1
 
-        self.clock_background.tick()
-        if self.clock_background.transition(self.background.frame_duration):
-            self.background.next_frame()
-
     def draw(self, canvas):
         self.background.draw(canvas)
         self.update()
         self.delete()
         self.wheel.update()
-
 
         clock.tick()
         if clock.transition(4):
@@ -76,8 +70,6 @@ class Interaction:
 
         self.wheel.draw(canvas)
 
-
-
     def delete(self):
         for platform in self.to_delete:
             self.to_delete.remove(platform)
@@ -87,10 +79,6 @@ class Interaction:
         self.platform_list.append(Laser_spritesheet())
         self.platform_count += 1
 
-
-
-
-
 kbd = Keyboard()
 wheel = Wheel(
     SHEET_IMG,
@@ -99,16 +87,9 @@ wheel = Wheel(
     SHEET_COLUMNS, SHEET_ROWS,
     40)
 clock = Clock()
+background = Background(Vector(800, 200))
 
-clock_background = ClockBackground(time)
-sheet = Background(
-    SHEET_URL,
-    BACK_WIDTH, BACK_HEIGHT,
-    BACK_COLUMNS, BACK_ROWS,
-    frame_duration
-)
-
-inter = Interaction(wheel, kbd, sheet, clock, clock_background)
+inter = Interaction(wheel, kbd, background, clock)
 
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
 frame.set_canvas_background('#bfcf46')
