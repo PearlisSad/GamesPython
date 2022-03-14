@@ -28,6 +28,7 @@ class Laser_spritesheet:
         self.clock = Clock_laser()
         self.frame_duration = 0.5
         self.dims = randomLaser()
+        self.dest_size = self.dims[1]
         if self.dims[2] == "vertical":
             self.img = simplegui.load_image(VERICAL_LASER_SHEET_URL)
             self.columns = VERTICAL_LASER_SHEET_COLUMNS
@@ -55,7 +56,6 @@ class Laser_spritesheet:
         if self.clock.transition(self.frame_duration):
             self.update_index()
 
-
         source_centre = (
             self.frame_width * self.frame_index[0] + self.frame_centre_x,
             self.frame_height * self.frame_index[1] + self.frame_centre_y
@@ -66,26 +66,30 @@ class Laser_spritesheet:
         pos_list[0] -= 4
         self.dest_centre = tuple(pos_list)
         # doesn't have to be same aspect ratio as frame!
-        dest_size = self.dims[1]
 
         canvas.draw_image(self.img,
                             source_centre,
                             source_size,
                             self.dest_centre,
-                            dest_size)
-
+                            self.dest_size)
 
     def done(self):
         return self.num_frames > 12
 
+    def hit(self, player):
+        player_pos = player.pos
+        return player_pos.x > self.dest_centre[0] and player_pos.y > self.dims[3] and player_pos.y < self.dims[4]
+
 def randomLaser():
     size = random.randint(150, 210)
     size_touple = (size, size)
-    y1 = random.randint(5, CANVAS_DIMS[1] - int((size/2)))
+    centre = random.randint(5, CANVAS_DIMS[1] - int((size/2)))
+    ystart = centre - size/2
+    yend = centre + size/2
     orientation = "vertical"
     if size > 200:
         orientation = "horizontal"
-    return (y1, size_touple, orientation)
+    return (centre, size_touple, orientation, ystart, yend)
 
 # class Platform:
 #     def __init__(self, orientation, dimentions):

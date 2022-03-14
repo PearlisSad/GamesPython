@@ -40,6 +40,7 @@ class Interaction:
         self.background = background
         self.clock = clock
         self.clock_background = clock_background
+        self.game_over = False
 
     def update(self):
         if self.keyboard.space and wheel.on_ground():
@@ -48,7 +49,6 @@ class Interaction:
             space_timer = 0
         if self.keyboard.space:
             space_timer += 5
-            print(space_timer)
             if space_timer > 10:
                 self.wheel.vel.y -= 5
                 space_timer = 0
@@ -71,10 +71,17 @@ class Interaction:
             wheel.frame_update()
         for platform in self.platform_list:
             platform.draw(canvas)
+            #print(self.wheel.hit(platform))
+            if platform.hit(self.wheel):
+                self.game_over = True
+            #print(self.wheel.hit(platform))
+            #print(self.game_over)
             if platform.dest_centre[0] < -200:
                 self.to_delete.append(platform)
 
         self.wheel.draw(canvas)
+        if self.game_over:
+            canvas.draw_text('GAME OVER', (CANVAS_DIMS[0]/2, CANVAS_DIMS[1]/2), 50, 'Red')
 
 
 
@@ -91,10 +98,13 @@ class Interaction:
 
 
 
+
+
+
 kbd = Keyboard()
 wheel = Wheel(
     SHEET_IMG,
-    Vector(CANVAS_DIMS[1] / 2.7, CANVAS_DIMS[0]),
+    Vector(CANVAS_DIMS[1] / 2.7, CANVAS_DIMS[1]),
     SHEET_WIDTH, SHEET_HEIGHT,
     SHEET_COLUMNS, SHEET_ROWS,
     40)
