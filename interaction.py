@@ -31,7 +31,7 @@ time = 0
 
 
 class Interaction:
-    def __init__(self, wheel, keyboard, background, clock, clock_background):
+    def __init__(self, wheel, keyboard, background, clock):
         self.wheel = wheel
         self.keyboard = keyboard
         self.platform_list = []
@@ -39,7 +39,6 @@ class Interaction:
         self.platform_count = 0
         self.background = background
         self.clock = clock
-        self.clock_background = clock_background
         self.game_over = False
 
     def update(self):
@@ -110,15 +109,9 @@ wheel = Wheel(
     40)
 clock = Clock()
 
-clock_background = ClockBackground(time)
-sheet = Background(
-    SHEET_URL,
-    BACK_WIDTH, BACK_HEIGHT,
-    BACK_COLUMNS, BACK_ROWS,
-    frame_duration
-)
 
-inter = Interaction(wheel, kbd, sheet, clock, clock_background)
+background = Background(Vector(800, 200))
+inter = Interaction(wheel, kbd, background, clock)
 
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
 frame.set_canvas_background('#bfcf46')
