@@ -8,6 +8,7 @@ import random
 from background import *  # Background, ClockBackground
 from ball import *  # Keyboard, Wheel, Platform, Clock
 from laser import Laser_spritesheet
+from explosion import Explosion_spritesheet
 
 CANVAS_DIMS = (800, 400)
 SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"#"D:\GamesPython\Spritesheet.png"
@@ -47,6 +48,7 @@ class Interaction:
         self.clock = clock
         self.game_over = False
         self.score = 0
+        self.explosion = None
 
     def update(self):
         if self.keyboard.space and wheel.on_ground():
@@ -62,36 +64,42 @@ class Interaction:
             self.wheel.vel.y = 1
 
     def draw(self, canvas):
-        self.background.draw(canvas)
-        self.update()
-        self.delete()
-        self.wheel.update()
-
-        time_score()
-        if counter % 10 == 0:
-            self.score += 1
-        canvas.draw_text(str(self.score), pos, size, color)
-        clock.tick()
-        if clock.transition(4):
-            wheel.frame_update()
-        for platform in self.platform_list:
-            platform.draw(canvas)
-            if platform.dims[2] == "vertical":
-                if platform.hit_vertical(self.wheel) and platform not in self.not_in_game_platform:
-                    self.game_over = True
-            else:
-                if platform.hit_horizontal(self.wheel) and platform not in self.not_in_game_platform:
-                    self.game_over = True
-
-            if platform.dims[4] < -210:
-                self.to_delete.append(platform)
-
-            if platform.dest_centre[0] < CANVAS_DIMS[1] / 2.7:
-                self.not_in_game_platform.append(platform)
-
-        self.wheel.draw(canvas)
         if self.game_over:
+            self.explosion.draw(canvas)
             canvas.draw_text('GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
+        else:
+            self.background.draw(canvas)
+            self.update()
+            self.delete()
+            self.wheel.update()
+
+            time_score()
+            if counter % 10 == 0:
+                self.score += 1
+            canvas.draw_text(str(self.score), pos, size, color)
+            clock.tick()
+            if clock.transition(4):
+                wheel.frame_update()
+            for platform in self.platform_list:
+                platform.draw(canvas)
+                if platform.dims[2] == "vertical":
+                    if platform.hit_vertical(self.wheel) and platform not in self.not_in_game_platform:
+                        self.game_over = True
+                        self.explosion = Explosion_spritesheet(wheel.pos.get_p())
+                else:
+                    if platform.hit_horizontal(self.wheel) and platform not in self.not_in_game_platform:
+                        self.game_over = True
+                        self.explosion = Explosion_spritesheet(wheel.pos.get_p())
+
+                if platform.dims[4] < -210:
+                    self.to_delete.append(platform)
+
+                if platform.dest_centre[0] < CANVAS_DIMS[1] / 2.7:
+                    self.not_in_game_platform.append(platform)
+
+            self.wheel.draw(canvas)
+
+
 
 
     def delete(self):
@@ -119,6 +127,7 @@ wheel = Wheel(
     SHEET_COLUMNS, SHEET_ROWS,
     40)
 clock = Clock()
+
 
 background =  Background(Vector(800, 200))
 inter = Interaction(wheel, kbd, background, clock)
