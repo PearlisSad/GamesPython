@@ -99,7 +99,7 @@ class Interaction:
 
 def time_score():
     global counter
-    counter = counter + 1
+    counter = counter +  1
 
 
 kbd = Keyboard()
