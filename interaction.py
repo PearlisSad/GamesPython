@@ -20,7 +20,7 @@ SHEET_COLUMNS = 5
 SHEET_ROWS = 2
 
 space_timer = 0
-SHEET_URL = "https://raw.githubusercontent.com/PearlisSad/GamesPython/aeebe682ce8a4c45eb1e982eed622973b5e06cda/backgroundSprite.png"#"https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
+SHEET_URL = "https://raw.githubusercontent.com/PearlisSad/GamesPython/aeebe682ce8a4c45eb1e982eed622973b5e06cda/backgroundSprite.png"  # "https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
 BACK_WIDTH = 11520  # 1440
 BACK_HEIGHT = 5400  # 1480
 BACK_COLUMNS = 6
@@ -29,9 +29,14 @@ BACK_ROWS = 5
 frame_duration = 15  # frame duration = number of ticks the frame should show for
 time = 0
 
+counter = 0
+pos = [700, 50]
+size = 30
+color = "red"
+
 
 class Interaction:
-    def __init__(self, wheel, keyboard, background, clock, clock_background):
+    def __init__(self, wheel, keyboard, background, clock):
         self.wheel = wheel
         self.keyboard = keyboard
         self.platform_list = []
@@ -40,8 +45,8 @@ class Interaction:
         self.platform_count = 0
         self.background = background
         self.clock = clock
-        self.clock_background = clock_background
         self.game_over = False
+        self.score = 0
 
     def update(self):
         if self.keyboard.space and wheel.on_ground():
@@ -56,17 +61,16 @@ class Interaction:
         if not self.keyboard.space and wheel.on_top():
             self.wheel.vel.y = 1
 
-        self.clock_background.tick()
-        if self.clock_background.transition(self.background.frame_duration):
-            self.background.next_frame()
-
     def draw(self, canvas):
         self.background.draw(canvas)
         self.update()
         self.delete()
         self.wheel.update()
 
-
+        time_score()
+        if counter % 10 == 0:
+            self.score += 1
+        canvas.draw_text(str(self.score), pos, size, color)
         clock.tick()
         if clock.transition(4):
             wheel.frame_update()
@@ -87,7 +91,7 @@ class Interaction:
 
         self.wheel.draw(canvas)
         if self.game_over:
-            canvas.draw_text('GAME OVER', (CANVAS_DIMS[0]/2, CANVAS_DIMS[1]/2), 50, 'Red')
+            canvas.draw_text('GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
 
 
     def delete(self):
@@ -102,6 +106,11 @@ class Interaction:
         self.platform_count += 1
 
 
+def time_score():
+    global counter
+    counter = counter +  1
+
+
 kbd = Keyboard()
 wheel = Wheel(
     SHEET_IMG,
@@ -111,15 +120,8 @@ wheel = Wheel(
     40)
 clock = Clock()
 
-clock_background = ClockBackground(time)
-sheet = Background(
-    SHEET_URL,
-    BACK_WIDTH, BACK_HEIGHT,
-    BACK_COLUMNS, BACK_ROWS,
-    frame_duration
-)
-
-inter = Interaction(wheel, kbd, sheet, clock, clock_background)
+background =  Background(Vector(800, 200))
+inter = Interaction(wheel, kbd, background, clock)
 
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
 frame.set_canvas_background('#bfcf46')
