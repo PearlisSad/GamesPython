@@ -111,7 +111,7 @@ wheel = Wheel(
     40)
 clock = Clock()
 
-background = Background(Vector(800, 200))
+background =  Background(Vector(800, 200))
 inter = Interaction(wheel, kbd, background, clock)
 
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
