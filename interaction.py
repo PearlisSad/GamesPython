@@ -36,6 +36,7 @@ class Interaction:
         self.keyboard = keyboard
         self.platform_list = []
         self.to_delete = []
+        self.not_in_game_platform = []
         self.platform_count = 0
         self.background = background
         self.clock = clock
@@ -71,34 +72,34 @@ class Interaction:
             wheel.frame_update()
         for platform in self.platform_list:
             platform.draw(canvas)
-            #print(self.wheel.hit(platform))
-            if platform.hit(self.wheel):
-                self.game_over = True
-            #print(self.wheel.hit(platform))
-            #print(self.game_over)
-            if platform.dest_centre[0] < -200:
+            if platform.dims[2] == "vertical":
+                if platform.hit_vertical(self.wheel) and platform not in self.not_in_game_platform:
+                    self.game_over = True
+            else:
+                if platform.hit_horizontal(self.wheel) and platform not in self.not_in_game_platform:
+                    self.game_over = True
+
+            if platform.dims[4] < -210:
                 self.to_delete.append(platform)
+
+            if platform.dest_centre[0] < CANVAS_DIMS[1] / 2.7:
+                self.not_in_game_platform.append(platform)
 
         self.wheel.draw(canvas)
         if self.game_over:
             canvas.draw_text('GAME OVER', (CANVAS_DIMS[0]/2, CANVAS_DIMS[1]/2), 50, 'Red')
 
 
-
     def delete(self):
         for platform in self.to_delete:
             self.to_delete.remove(platform)
             self.platform_list.remove(platform)
+            if platform.dest_centre[0] < -210:
+                self.not_in_game_platform.remove(platform)
 
     def add_platform(self):
         self.platform_list.append(Laser_spritesheet())
         self.platform_count += 1
-
-
-
-
-
-
 
 
 kbd = Keyboard()

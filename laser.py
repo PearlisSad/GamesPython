@@ -76,20 +76,24 @@ class Laser_spritesheet:
     def done(self):
         return self.num_frames > 12
 
-    def hit(self, player):
+    def hit_vertical(self, player):
         player_pos = player.pos
         return player_pos.x > self.dest_centre[0] and player_pos.y > self.dims[3] and player_pos.y < self.dims[4]
+
+    def hit_horizontal(self, player):
+        player_pos = player.pos
+        return player_pos.y < self.dims[0] + 3 and player_pos.y > self.dims[0] - 3 and player_pos.x > self.dest_centre[0] - self.dims[1][1]
 
 def randomLaser():
     size = random.randint(150, 210)
     size_touple = (size, size)
     centre = random.randint(5, CANVAS_DIMS[1] - int((size/2)))
-    ystart = centre - size/2
-    yend = centre + size/2
+    start_point = centre - size/2
+    end_point = centre + size/2
     orientation = "vertical"
     if size > 200:
         orientation = "horizontal"
-    return (centre, size_touple, orientation, ystart, yend)
+    return (centre, size_touple, orientation, start_point, end_point)
 
 # class Platform:
 #     def __init__(self, orientation, dimentions):
