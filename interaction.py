@@ -64,7 +64,11 @@ class Interaction:
             self.wheel.vel.y = 1
 
     def draw(self, canvas):
-        if self.game_over:
+        if self.game_over and self.explosion.done():
+            canvas.draw_text('END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
+            # DRAW THE ENDSCREEN HERE
+            #IF NEW GAME CLICKED MAKE self.game_over = FALSE
+        elif self.game_over:
             self.explosion.draw(canvas)
             canvas.draw_text('GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
         else:
