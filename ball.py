@@ -77,27 +77,6 @@ class Wheel:
     def on_top(self):
         return self.pos.y <= self.radius
 
-    # def hit(self, platform):
-    #     #y1 = platform.dest_centre[0] + ((platform.dims[1][0])/ 2)
-    #     #y2 = platform.dest_centre[0] - ((platform.dims[1][0]) / 2)
-    #     #if platform.dims[2] == "vertical" and platform.dest_centre[0] <= ((CANVAS_DIMS[1] / 2.7)) and (self.pos.y <= y1 and self.pos.y >= y2): #and platform.dest_centre[0] >= ((CANVAS_DIMS[1] / 2.7) - 5):
-    #         #print("true")
-    #         # vector_pos = Vector(platform.dest_centre[0], platform.dest_centre[1])
-    #         # distance = vector_pos.copy().subtract(self.pos).length()
-    #         # return distance < platform.dims[1][0]# + self.radius
-    #         #return True
-    #     #return self.pos.x + self.radius >= platform.dest_centre[0]
-    #     #return False
-    #     player_vertical_pos = self.pos
-    #     return player_vertical_pos > platform.dims[3] and player_vertical_pos < platform.dims[4]
-
-
-        # if self.pos.y <= y1:
-        #     if self.pos.y >= y2:
-        #         print("True")
-        #         print(y1)
-        #         print(y2)
-        #         print(self.pos.y)
 class Keyboard:
     def __init__(self):
         self.space = False
