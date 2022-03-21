@@ -28,6 +28,7 @@ class Laser_spritesheet:
         self.clock = Clock_laser()
         self.frame_duration = 0.5
         self.dims = randomLaser()
+        self.dest_size = self.dims[1]
         if self.dims[2] == "vertical":
             self.img = simplegui.load_image(VERICAL_LASER_SHEET_URL)
             self.columns = VERTICAL_LASER_SHEET_COLUMNS
@@ -55,7 +56,6 @@ class Laser_spritesheet:
         if self.clock.transition(self.frame_duration):
             self.update_index()
 
-
         source_centre = (
             self.frame_width * self.frame_index[0] + self.frame_centre_x,
             self.frame_height * self.frame_index[1] + self.frame_centre_y
@@ -66,43 +66,35 @@ class Laser_spritesheet:
         pos_list[0] -= 4
         self.dest_centre = tuple(pos_list)
         # doesn't have to be same aspect ratio as frame!
-        dest_size = self.dims[1]
 
         canvas.draw_image(self.img,
                             source_centre,
                             source_size,
                             self.dest_centre,
-                            dest_size)
-
+                            self.dest_size)
 
     def done(self):
         return self.num_frames > 12
 
+    def hit_vertical(self, player):
+        player_pos = player.pos
+        return player_pos.x > self.dest_centre[0] and player_pos.y > self.dims[3] and player_pos.y < self.dims[4]
+
+    def hit_horizontal(self, player):
+        player_pos = player.pos
+        return player_pos.y < self.dims[0] + 3 and player_pos.y > self.dims[0] - 3 and player_pos.x > self.dest_centre[0] - self.dims[1][1]
+
 def randomLaser():
     size = random.randint(150, 210)
     size_touple = (size, size)
-    y1 = random.randint(5, CANVAS_DIMS[1] - int((size/2)))
+    centre = random.randint(5, CANVAS_DIMS[1] - int((size/2)))
+    start_point = centre - size/2
+    end_point = centre + size/2
     orientation = "vertical"
     if size > 200:
         orientation = "horizontal"
-    return (y1, size_touple, orientation)
+    return (centre, size_touple, orientation, start_point, end_point)
 
-# class Platform:
-#     def __init__(self, orientation, dimentions):
-#         self.orientation = orientation
-#         self.dimentions = dimentions
-#         self.x = CANVAS_DIMS[0]
-#
-#
-#     def draw(self, canvas):
-#         if self.orientation == "vertical":
-#             canvas.draw_line((self.x, self.dimentions[0]), (self.x, self.dimentions[1]), 10, 'Red')
-#         elif self.orientation == "horizontal":
-#             canvas.draw_line((self.x, self.dimentions[0]), (self.x + self.dimentions[2], self.dimentions[0]), 10, 'Red')
-#         self.x -= 3
-#
-#     def update(self):
-#         return None
 #
 class Clock_laser:
     def __init__(self):
@@ -113,60 +105,3 @@ class Clock_laser:
 
     def transition(self, frame_duration):
         return self.time % frame_duration == 0
-#
-# class Interaction:
-#
-#     def __init__(self, laser):#explosion_list):
-#         #self.explosion_list = explosion_list
-#         #self.to_delete = []
-#         #self.score = 10
-#         self.laser = laser
-#
-#     def draw(self, canvas):
-#         #self.delete()
-#         #self.update()
-#         #self.score_update(canvas)
-#         # if self.score > 0:
-#         #     self.add_explosion()
-#         # else:
-#         #     self.score = 0
-#         # for explosion in self.explosion_list:
-#         self.laser.draw(canvas)
-#             # if explosion.done() and explosion not in self.to_delete:
-#             #     self.to_delete.append(explosion)
-#             #     self.score -= 1
-#
-#     # def score_update(self, canvas):
-#     #     if self.score > 0:
-#     #         canvas.draw_text(str(self.score), (CANVAS_WIDTH / 2, 50), 33, 'Red', 'serif')
-#     #     else:
-#     #         canvas.draw_text("Game over", (CANVAS_WIDTH / 2, 50), 33, 'Red', 'serif')
-#     # def update(self):
-#     #     last_click = self.mouse.click_pos()
-#     #     if last_click is not None:
-#     #         for explosion in self.explosion_list:
-#     #             if last_click.copy().subtract(Vector(explosion.dest_centre[0],explosion.dest_centre[1])).length() <= explosion.dest_size[0]:
-#     #                 self.to_delete.append(explosion)
-#     #
-#     #
-#     # def delete(self):
-#     #     for explosion in self.to_delete:
-#     #         self.explosion_list.remove(explosion)
-#     #         self.to_delete.remove(exploion)
-#
-#     # def add_explosion(self):
-#     #     if 1 == random.randrange(1, 80):
-#     #         self.explosion_list.append(Spritesheet(SHEET_URL, SHEET_WIDTH, SHEET_HEIGHT,
-#     #                                           SHEET_COLUMNS, SHEET_ROWS, Clock(), rand_pos(), rand_frame_duration(),
-#     #                                           rand_scale()))
-#
-# laser = Laser_spritesheet(SHEET_URL,SHEET_WIDTH, SHEET_HEIGHT,
-#                                 SHEET_COLUMNS, SHEET_ROWS,Clock())
-# interaction = Interaction(laser)#explosion_list)
-#
-# frame = simplegui.create_frame("Sprite", CANVAS_DIMS[0], CANVAS_DIMS[1])
-# frame.set_draw_handler(interaction.draw)
-# #frame.set_mouseclick_handler(mouse.click_handler)
-# frame.start()
-# #Spritesheet(SHEET_URL,SHEET_WIDTH, SHEET_HEIGHT,
-#                                 #SHEET_COLUMNS, SHEET_ROWS,Clock(), rand_pos(),rand_frame_duration(),rand_scale()),
