@@ -9,6 +9,13 @@ from background import *  # Background, ClockBackground
 from ball import *  # Keyboard, Wheel, Platform, Clock
 from laser import Laser_spritesheet
 from explosion import Explosion_spritesheet
+background_img = simplegui.load_image(
+    'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/backgroundSmaller.png')
+#https://cdn.discordapp.com/attachments/932691213721694358/951996954848661504/backgroundSmaller.png
+background_centre = (800, 200)
+background_dims = (1600, 400)
+background_reset = Vector(800, 200)
+background_counter = 0
 
 CANVAS_DIMS = (800, 400)
 SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"#"D:\GamesPython\Spritesheet.png"
@@ -62,6 +69,7 @@ class Interaction:
                 space_timer = 0
         if not self.keyboard.space and wheel.on_top():
             self.wheel.vel.y = 1
+        self.background.update()
 
     def draw(self, canvas):
         if self.game_over and self.explosion.done():
@@ -133,7 +141,7 @@ wheel = Wheel(
 clock = Clock()
 
 
-background =  Background(Vector(800, 200))
+background = Background(Vector(800, 200))
 inter = Interaction(wheel, kbd, background, clock)
 
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
