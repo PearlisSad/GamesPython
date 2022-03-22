@@ -8,6 +8,7 @@ from VectorClass.vectorClass import Vector
 CANVAS_DIMS = (800, 400)
 
 SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"
+sheet_still =simplegui.load_image("https://raw.githubusercontent.com/PearlisSad/GamesPython/main/megaman%20standing%20still.png")
 
 SHEET_WIDTH = 564
 SHEET_HEIGHT = 240
@@ -43,6 +44,18 @@ class Wheel:
         self.frame_index = [0, 0]
 
     def draw(self, canvas):
+        source_centre = (
+            self.frame_width * self.frame_index[0] + self.frame_centre_x,
+            self.frame_height * self.frame_index[1] + self.frame_centre_y
+        )
+
+        source_size = (self.frame_width, self.frame_height)
+        canvas.draw_image(
+            sheet_still,
+            (57,60), (114,120), self.pos.get_p(),
+            (self.radius * 2, self.radius * 2))
+
+    def draw_jump(self, canvas):
         source_centre = (
             self.frame_width * self.frame_index[0] + self.frame_centre_x,
             self.frame_height * self.frame_index[1] + self.frame_centre_y
