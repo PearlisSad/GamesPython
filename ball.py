@@ -8,7 +8,7 @@ from VectorClass.vectorClass import Vector
 CANVAS_DIMS = (800, 400)
 
 SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"
-sheet_still =simplegui.load_image("https://raw.githubusercontent.com/PearlisSad/GamesPython/main/megaman%20standing%20still.png")
+sheet_still =simplegui.load_image("https://raw.githubusercontent.com/PearlisSad/GamesPython/main/Spritesheet%20for%20jumping.png")
 
 SHEET_WIDTH = 564
 SHEET_HEIGHT = 240
