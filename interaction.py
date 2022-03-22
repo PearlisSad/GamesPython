@@ -122,7 +122,7 @@ class Interaction:
             distance.set_text("Distance: " + str(self.score) + "M")
             for platform in self.platform_list:
                 platform.draw(canvas)
-            if self.wheel.on_ground()==False:
+            if self.wheel.on_ground():
                 self.wheel.draw(canvas)
             else:
                 self.wheel.draw_jump(canvas)

@@ -51,8 +51,8 @@ class Wheel:
 
         source_size = (self.frame_width, self.frame_height)
         canvas.draw_image(
-            sheet_still,
-            (57,60), (114,120), self.pos.get_p(),
+            self.img,
+            source_centre, source_size, self.pos.get_p(),
             (self.radius * 2, self.radius * 2))
 
     def draw_jump(self, canvas):
@@ -63,9 +63,10 @@ class Wheel:
 
         source_size = (self.frame_width, self.frame_height)
         canvas.draw_image(
-            self.img,
-            source_centre, source_size, self.pos.get_p(),
+            sheet_still,
+            (57, 60), (114, 120), self.pos.get_p(),
             (self.radius * 2, self.radius * 2))
+
 
     def frame_update(self):
         self.frame_index[0] = (self.frame_index[0] + 1) % self.columns
