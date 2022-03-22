@@ -20,7 +20,7 @@ background_counter = 0
 CANVAS_DIMS = (800, 400)
 SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"#"D:\GamesPython\Spritesheet.png"
 # "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet_bird.jpg?raw=true"
-
+sheet_still =simplegui.load_image("https://raw.githubusercontent.com/PearlisSad/GamesPython/main/megaman%20standing%20still.png")
 SHEET_WIDTH = 564
 SHEET_HEIGHT = 240
 
