@@ -119,8 +119,8 @@ class Interaction:
         if self.game_over and self.explosion.done():
             canvas.draw_text(
                 'END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
-            canvas.draw_text('Jumpman travelled ' + str(self.score) +
-                             " metres", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
+            canvas.draw_text('The Flyy Man travelled ' + str(self.score) +
+                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
             # DRAW THE ENDSCREEN HERE
             # IF NEW GAME CLICKED MAKE self.game_over = FALSE
         elif self.game_over:
