@@ -115,7 +115,6 @@ class Interaction:
             canvas.draw_text('END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
             # DRAW THE ENDSCREEN HERE
             #IF NEW GAME CLICKED MAKE self.game_over = FALSE
-            self.game_started==False
         elif self.game_over:
             self.explosion.draw(canvas)
             canvas.draw_text('GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
@@ -143,6 +142,7 @@ class Interaction:
                               (800, 400))
             if self.keyboard.space:
                 self.game_started = True
+                self.game_restart()
         else:
             self.draw(canvas)
 
@@ -161,6 +161,17 @@ class Interaction:
 
     def button_handler(self):
         self.game_over = False
+        self.game_started = False
+        self.score = 0
+        distance.set_text("Distance: " + str(self.score) + "M")
+        lives.set_text("Lives: 2")
+        #self.game_restart()
+
+    def game_restart(self):
+        self.platform_list.clear()
+        self.not_in_game_platform.clear()
+        self.to_delete.clear()
+
 
 
 def time_score():
