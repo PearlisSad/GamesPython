@@ -19,7 +19,6 @@ HORIZONTAL_LASER_SHEET_ROWS = 4
 CANVAS_DIMS = (800, 400)
 
 
-
 class Laser_spritesheet:
     def __init__(self):
         self.width = LASER_SHEET_WIDTH
@@ -68,10 +67,10 @@ class Laser_spritesheet:
         # doesn't have to be same aspect ratio as frame!
 
         canvas.draw_image(self.img,
-                            source_centre,
-                            source_size,
-                            self.dest_centre,
-                            self.dest_size)
+                          source_centre,
+                          source_size,
+                          self.dest_centre,
+                          self.dest_size)
 
     def done(self):
         return self.num_frames > 12
@@ -83,6 +82,7 @@ class Laser_spritesheet:
     def hit_horizontal(self, player):
         player_pos = player.pos
         return player_pos.y < self.dims[0] + 3 and player_pos.y > self.dims[0] - 3 and player_pos.x > self.dest_centre[0] - self.dims[1][1]
+
 
 def randomLaser():
     size = random.randint(150, 210)
@@ -96,6 +96,8 @@ def randomLaser():
     return (centre, size_touple, orientation, start_point, end_point)
 
 #
+
+
 class Clock_laser:
     def __init__(self):
         self.time = 0

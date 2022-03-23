@@ -11,7 +11,7 @@ from laser import Laser_spritesheet
 from explosion import Explosion_spritesheet
 background_img = simplegui.load_image(
     'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/backgroundSmaller.png')
-#https://cdn.discordapp.com/attachments/932691213721694358/951996954848661504/backgroundSmaller.png
+# https://cdn.discordapp.com/attachments/932691213721694358/951996954848661504/backgroundSmaller.png
 background_centre = (800, 200)
 background_dims = (1600, 400)
 background_reset = Vector(800, 200)
@@ -21,9 +21,11 @@ main_menu_img = simplegui.load_image(
     'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/jumpman.png')
 
 CANVAS_DIMS = (800, 400)
-SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"#"D:\GamesPython\Spritesheet.png"
+# "D:\GamesPython\Spritesheet.png"
+SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"
 # "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet_bird.jpg?raw=true"
-sheet_still =simplegui.load_image("https://raw.githubusercontent.com/PearlisSad/GamesPython/main/Spritesheet%20for%20jumping.png")
+sheet_still = simplegui.load_image(
+    "https://raw.githubusercontent.com/PearlisSad/GamesPython/main/Spritesheet%20for%20jumping.png")
 SHEET_WIDTH = 564
 SHEET_HEIGHT = 240
 
@@ -31,7 +33,8 @@ SHEET_COLUMNS = 5
 SHEET_ROWS = 2
 
 space_timer = 0
-SHEET_URL = "https://raw.githubusercontent.com/PearlisSad/GamesPython/aeebe682ce8a4c45eb1e982eed622973b5e06cda/backgroundSprite.png"  # "https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
+# "https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
+SHEET_URL = "https://raw.githubusercontent.com/PearlisSad/GamesPython/aeebe682ce8a4c45eb1e982eed622973b5e06cda/backgroundSprite.png"
 BACK_WIDTH = 11520  # 1440
 BACK_HEIGHT = 5400  # 1480
 BACK_COLUMNS = 6
@@ -65,7 +68,7 @@ class Interaction:
 
     def update(self):
         if self.keyboard.space and wheel.on_ground():
-            self.wheel.changeVel(Vector(0,-10))
+            self.wheel.changeVel(Vector(0, -10))
             #self.wheel.vel.y = -10
             global space_timer
             space_timer = 0
@@ -91,7 +94,8 @@ class Interaction:
                 if platform.hit_vertical(self.wheel) and platform not in self.not_in_game_platform:
                     if lives.get_text() == "Lives: 1":
                         self.game_over = True
-                        self.explosion = Explosion_spritesheet(wheel.pos.get_p())
+                        self.explosion = Explosion_spritesheet(
+                            wheel.pos.get_p())
                         lives.set_text("Lives: 0")
                     else:
                         lives.set_text("Lives: 1")
@@ -99,7 +103,8 @@ class Interaction:
                 if platform.hit_horizontal(self.wheel) and platform not in self.not_in_game_platform:
                     if lives.get_text() == "Lives: 1":
                         self.game_over = True
-                        self.explosion = Explosion_spritesheet(wheel.pos.get_p())
+                        self.explosion = Explosion_spritesheet(
+                            wheel.pos.get_p())
                         lives.set_text("Lives: 0")
                     else:
                         lives.set_text("Lives: 1")
@@ -112,13 +117,16 @@ class Interaction:
 
     def draw(self, canvas):
         if self.game_over and self.explosion.done():
-            canvas.draw_text('END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
-            canvas.draw_text('Jumpman travelled ' + str(self.score)+" metres", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
+            canvas.draw_text(
+                'END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
+            canvas.draw_text('Jumpman travelled ' + str(self.score) +
+                             " metres", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
             # DRAW THE ENDSCREEN HERE
-            #IF NEW GAME CLICKED MAKE self.game_over = FALSE
+            # IF NEW GAME CLICKED MAKE self.game_over = FALSE
         elif self.game_over:
             self.explosion.draw(canvas)
-            canvas.draw_text('GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
+            canvas.draw_text(
+                'GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
         else:
             self.background.draw(canvas)
 
@@ -135,7 +143,7 @@ class Interaction:
                 self.wheel.draw_jump(canvas)
 
     def main_menu(self, canvas):
-        if self.game_started  == False:
+        if self.game_started == False:
             canvas.draw_image(main_menu_img,
                               (400, 200),
                               (800, 400),
@@ -147,14 +155,12 @@ class Interaction:
         else:
             self.draw(canvas)
 
-
     def delete(self):
         for platform in self.to_delete:
             self.to_delete.remove(platform)
             self.platform_list.remove(platform)
             if platform.dest_centre[0] < -210:
                 self.not_in_game_platform.remove(platform)
-
 
     def add_platform(self):
         self.platform_list.append(Laser_spritesheet())
@@ -166,7 +172,7 @@ class Interaction:
         self.score = 0
         distance.set_text("Distance: " + str(self.score) + "M")
         lives.set_text("Lives: 2")
-        #self.game_restart()
+        # self.game_restart()
 
     def game_restart(self):
         self.platform_list.clear()
@@ -174,15 +180,16 @@ class Interaction:
         self.to_delete.clear()
 
 
-
 def time_score():
     global counter
-    counter = counter +  1
+    counter = counter + 1
+
 
 def game_handler(canvas):
     inter.update()
-    #inter.draw(canvas)
+    # inter.draw(canvas)
     inter.main_menu(canvas)
+
 
 kbd = Keyboard()
 wheel = Wheel(
