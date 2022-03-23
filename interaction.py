@@ -129,7 +129,7 @@ class Interaction:
             canvas.draw_text(
                 'END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
             canvas.draw_text('The Flyy Man travelled ' + str(self.score) +
-                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
+                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25,'Red')
         elif self.game_over:
             self.explosion.draw(canvas)
             canvas.draw_text(
