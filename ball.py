@@ -42,6 +42,9 @@ class Wheel:
         self.frame_centre_y = self.frame_height / 2
 
         self.frame_index = [0, 0]
+        
+    def changeVel(self,vector):
+        self.vel.add(vector)
 
     def draw(self, canvas):
         source_centre = (

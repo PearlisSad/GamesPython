@@ -17,6 +17,9 @@ background_dims = (1600, 400)
 background_reset = Vector(800, 200)
 background_counter = 0
 
+main_menu_img = simplegui.load_image(
+    'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/jumpman.png')
+
 CANVAS_DIMS = (800, 400)
 SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"#"D:\GamesPython\Spritesheet.png"
 # "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet_bird.jpg?raw=true"
@@ -58,16 +61,19 @@ class Interaction:
         self.game_over = False
         self.score = 0
         self.explosion = None
+        self.game_started = False
 
     def update(self):
         if self.keyboard.space and wheel.on_ground():
-            self.wheel.vel.y = -10
+            self.wheel.changeVel(Vector(0,-10))
+            #self.wheel.vel.y = -10
             global space_timer
             space_timer = 0
         if self.keyboard.space:
             space_timer += 5
             if space_timer > 10:
-                self.wheel.vel.y -= 5
+                #self.wheel.vel.y -= 5
+                self.wheel.changeVel(Vector(0, -5))
                 space_timer = 0
         if not self.keyboard.space and wheel.on_top():
             self.wheel.vel.y = 1
@@ -109,6 +115,7 @@ class Interaction:
             canvas.draw_text('END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
             # DRAW THE ENDSCREEN HERE
             #IF NEW GAME CLICKED MAKE self.game_over = FALSE
+            self.game_started==False
         elif self.game_over:
             self.explosion.draw(canvas)
             canvas.draw_text('GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
@@ -118,7 +125,7 @@ class Interaction:
             time_score()
             if counter % 10 == 0:
                 self.score += 1
-            canvas.draw_text(str(self.score), pos, size, color)
+            #canvas.draw_text(str(self.score), pos, size, color)
             distance.set_text("Distance: " + str(self.score) + "M")
             for platform in self.platform_list:
                 platform.draw(canvas)
@@ -126,6 +133,18 @@ class Interaction:
                 self.wheel.draw(canvas)
             else:
                 self.wheel.draw_jump(canvas)
+
+    def main_menu(self, canvas):
+        if self.game_started  == False:
+            canvas.draw_image(main_menu_img,
+                              (400, 200),
+                              (800, 400),
+                              (400, 200),
+                              (800, 400))
+            if self.keyboard.space:
+                self.game_started = True
+        else:
+            self.draw(canvas)
 
 
     def delete(self):
@@ -150,8 +169,8 @@ def time_score():
 
 def game_handler(canvas):
     inter.update()
-    inter.draw(canvas)
-
+    #inter.draw(canvas)
+    inter.main_menu(canvas)
 
 kbd = Keyboard()
 wheel = Wheel(
