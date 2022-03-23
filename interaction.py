@@ -18,7 +18,9 @@ background_reset = Vector(800, 200)
 background_counter = 0
 
 main_menu_img = simplegui.load_image(
-    'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/jumpman.png')
+    'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/mainmenu.png')
+endscreen_img = simplegui.load_image(
+    'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/end%20screen.png')
 
 CANVAS_DIMS = (800, 400)
 # "D:\GamesPython\Spritesheet.png"
@@ -117,12 +119,17 @@ class Interaction:
 
     def draw(self, canvas):
         if self.game_over and self.explosion.done():
+            # DRAW THE ENDSCREEN HERE
+            canvas.draw_image(endscreen_img,
+                              (400, 200),
+                              (800, 400),
+                              (400, 200),
+                              (800, 400))
+            # IF NEW GAME CLICKED MAKE self.game_over = FALSE
             canvas.draw_text(
                 'END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
             canvas.draw_text('The Flyy Man travelled ' + str(self.score) +
                              " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
-            # DRAW THE ENDSCREEN HERE
-            # IF NEW GAME CLICKED MAKE self.game_over = FALSE
         elif self.game_over:
             self.explosion.draw(canvas)
             canvas.draw_text(
