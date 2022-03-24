@@ -5,7 +5,6 @@ except ImportError:
 from VectorClass.vectorClass import Vector
 background_img = simplegui.load_image(
     'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/backgroundSmaller.png')
-#https://cdn.discordapp.com/attachments/932691213721694358/951996954848661504/backgroundSmaller.png
 background_centre = (800, 200)
 background_dims = (1600, 400)
 background_reset = Vector(800, 200)

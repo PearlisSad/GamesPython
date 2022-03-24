@@ -9,33 +9,34 @@ from background import *  # Background, ClockBackground
 from ball import *  # Keyboard, Wheel, Platform, Clock
 from laser import Laser_spritesheet
 from explosion import Explosion_spritesheet
+
+# defining background parameters
 background_img = simplegui.load_image(
     'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/backgroundSmaller.png')
-# https://cdn.discordapp.com/attachments/932691213721694358/951996954848661504/backgroundSmaller.png
 background_centre = (800, 200)
 background_dims = (1600, 400)
 background_reset = Vector(800, 200)
 background_counter = 0
 
+# defining main menu and end screen image
 main_menu_img = simplegui.load_image(
     'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/mainmenu.png')
 endscreen_img = simplegui.load_image(
     'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/end%20screen.png')
 
+# defining canvas dimentions
 CANVAS_DIMS = (800, 400)
-# "D:\GamesPython\Spritesheet.png"
+# defining the spritesheet for the main hero
 SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"
-# "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet_bird.jpg?raw=true"
 sheet_still = simplegui.load_image(
     "https://raw.githubusercontent.com/PearlisSad/GamesPython/main/Spritesheet%20for%20jumping.png")
 SHEET_WIDTH = 564
 SHEET_HEIGHT = 240
-
 SHEET_COLUMNS = 5
 SHEET_ROWS = 2
 
 space_timer = 0
-# "https://cdn.discordapp.com/attachments/932691213721694358/950287598386036756/Untitled-5.png"
+# defining background dimentions and origin
 SHEET_URL = "https://raw.githubusercontent.com/PearlisSad/GamesPython/aeebe682ce8a4c45eb1e982eed622973b5e06cda/backgroundSprite.png"
 BACK_WIDTH = 11520  # 1440
 BACK_HEIGHT = 5400  # 1480
@@ -45,12 +46,12 @@ BACK_ROWS = 5
 frame_duration = 15  # frame duration = number of ticks the frame should show for
 time = 0
 
+# defining the meters counter
 counter = 0
-pos = [700, 50]
-size = 30
-color = "red"
 
 game_over = False
+
+# the Interaction class - combines all interactions from the other files
 
 
 class Interaction:
@@ -129,7 +130,7 @@ class Interaction:
             canvas.draw_text(
                 'END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
             canvas.draw_text('The Flyy Man travelled ' + str(self.score) +
-                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25,'Red')
+                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
         elif self.game_over:
             self.explosion.draw(canvas)
             canvas.draw_text(
