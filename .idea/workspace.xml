@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46097a6f-17a4-48c3-bc8c-37f6c8732ee1" name="Changes" comment="changed animation when avatar not on ground">
+    <list default="true" id="46097a6f-17a4-48c3-bc8c-37f6c8732ee1" name="Changes" comment="changed main menu and end screen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/background.py" beforeDir="false" afterPath="$PROJECT_DIR$/background.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/interaction.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +85,9 @@
       <workItem from="1647055963905" duration="923000" />
       <workItem from="1647061185620" duration="708000" />
       <workItem from="1647961067498" duration="5209000" />
-      <workItem from="1648061901146" duration="2085000" />
+      <workItem from="1648061901146" duration="2729000" />
+      <workItem from="1648121506377" duration="220000" />
+      <workItem from="1648197422756" duration="2951000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed interaction with background and laser">
       <created>1647358441875</created>
@@ -121,7 +124,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647971762290</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="changed main menu and end screen">
+      <created>1648064872356</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1648064872357</updated>
+    </task>
+    <task id="LOCAL-00007" summary="changed main menu and end screen">
+      <created>1648064890337</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1648064890337</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,10 +158,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fixed interaction with background and laser" />
     <MESSAGE value="changed animation when avatar not on ground" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed animation when avatar not on ground" />
+    <MESSAGE value="changed main menu and end screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed main menu and end screen" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/GamesPython$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1647358895985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/GAMES_ONLY_PULLING$interaction.coverage" NAME="interaction Coverage Results" MODIFIED="1648063289000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GAMES_ONLY_PULLING$interaction.coverage" NAME="interaction Coverage Results" MODIFIED="1648211326255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -22,7 +22,7 @@ background_counter = 0
 main_menu_img = simplegui.load_image(
     'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/mainmenu.png')
 endscreen_img = simplegui.load_image(
-    'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/end%20screen.png')
+    'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/endscreen.png')
 
 # defining canvas dimentions
 CANVAS_DIMS = (800, 400)
@@ -128,13 +128,15 @@ class Interaction:
                               (800, 400))
             # IF NEW GAME CLICKED MAKE self.game_over = FALSE
             canvas.draw_text(
-                'END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
+                'GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Black')
             canvas.draw_text('The Flyy Man travelled ' + str(self.score) +
-                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
+                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Black')
         elif self.game_over:
+            self.background.draw(canvas)
+            for platform in self.platform_list:
+                platform.draw(canvas)
             self.explosion.draw(canvas)
-            canvas.draw_text(
-                'GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
+            #canvas.draw_text('GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
         else:
             self.background.draw(canvas)
 

@@ -18,21 +18,22 @@ class Background:
         self.vel = Vector()
 
     def draw(self, canvas):
-        self.pos.add(Vector(-5, 0))
-        # self.pos.add(self.vel)
-        # self.vel.multiply(-0.85)
-        self.vel.multiply(0.9)
+        #self.pos.add(Vector(-5, 0))
+        #self.vel.multiply(0.9)
 
         canvas.draw_image(background_img,
                           background_centre,
                           background_dims,
                           (self.pos.x, self.pos.y),
                           (1600, 400))
-        # print(self.pos.get_p())
-        # print(self.pos.x)
+
 
     def update(self):
         # print(self.pos.get_p())
+        self.pos.add(Vector(-5, 0))
+        # self.pos.add(self.vel)
+        # self.vel.multiply(-0.85)
+        self.vel.multiply(0.9)
         if self.pos.x < 1:
             # print("haha")
             self.pos = Vector(800, 200)  # (background_reset)
