@@ -8,7 +8,8 @@ from VectorClass.vectorClass import Vector
 CANVAS_DIMS = (800, 400)
 
 SHEET_IMG = "https://github.com/PearlisSad/GamesPython/blob/main/Spritesheet.png?raw=true"
-sheet_still =simplegui.load_image("https://raw.githubusercontent.com/PearlisSad/GamesPython/main/Spritesheet%20for%20jumping.png")
+sheet_still = simplegui.load_image(
+    "https://raw.githubusercontent.com/PearlisSad/GamesPython/main/Spritesheet%20for%20jumping.png")
 
 SHEET_WIDTH = 564
 SHEET_HEIGHT = 240
@@ -19,7 +20,7 @@ SHEET_ROWS = 2
 space_timer = 0
 
 
-class Wheel:
+class Sprite:
     def __init__(self,
                  img, pos,
                  width, height,
@@ -42,8 +43,8 @@ class Wheel:
         self.frame_centre_y = self.frame_height / 2
 
         self.frame_index = [0, 0]
-        
-    def changeVel(self,vector):
+
+    def changeVel(self, vector):
         self.vel.add(vector)
 
     def draw(self, canvas):
@@ -70,7 +71,6 @@ class Wheel:
             (57, 60), (114, 120), self.pos.get_p(),
             (self.radius * 2, self.radius * 2))
 
-
     def frame_update(self):
         self.frame_index[0] = (self.frame_index[0] + 1) % self.columns
         if self.frame_index[0] == 0:
@@ -93,6 +93,7 @@ class Wheel:
 
     def on_top(self):
         return self.pos.y <= self.radius
+
 
 class Keyboard:
     def __init__(self):
@@ -118,6 +119,3 @@ class Clock:
     def transition(self, frame_duration):
         self.frame_duration = frame_duration
         return self.time % self.frame_duration == 0
-
-
-

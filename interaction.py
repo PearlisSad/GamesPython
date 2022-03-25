@@ -4,9 +4,9 @@ except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 import random
-
+# importing the classes needed from the files used
 from background import *  # Background, ClockBackground
-from ball import *  # Keyboard, Wheel, Platform, Clock
+from sprite import *  # Keyboard, Sprite, Platform, Clock
 from laser import Laser_spritesheet
 from explosion import Explosion_spritesheet
 
@@ -128,15 +128,13 @@ class Interaction:
                               (800, 400))
             # IF NEW GAME CLICKED MAKE self.game_over = FALSE
             canvas.draw_text(
-                'GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Black')
+                'END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
             canvas.draw_text('The Flyy Man travelled ' + str(self.score) +
-                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Black')
+                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
         elif self.game_over:
-            self.background.draw(canvas)
-            for platform in self.platform_list:
-                platform.draw(canvas)
             self.explosion.draw(canvas)
-            #canvas.draw_text('GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
+            canvas.draw_text(
+                'GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
         else:
             self.background.draw(canvas)
 
