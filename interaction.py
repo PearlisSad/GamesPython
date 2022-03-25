@@ -4,9 +4,9 @@ except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
 import random
-
+# importing the classes needed from the files used
 from background import *  # Background, ClockBackground
-from ball import *  # Keyboard, Wheel, Platform, Clock
+from sprite import *  # Keyboard, Sprite, Platform, Clock
 from laser import Laser_spritesheet
 from explosion import Explosion_spritesheet
 
@@ -55,8 +55,10 @@ game_over = False
 
 
 class Interaction:
-    def __init__(self, wheel, keyboard, background, clock):
-        self.wheel = wheel
+
+    # creating all objects in the class
+    def __init__(self, sprite, keyboard, background, clock):
+        self.sprite = sprite
         self.keyboard = keyboard
         self.platform_list = []
         self.to_delete = []
@@ -69,88 +71,103 @@ class Interaction:
         self.explosion = None
         self.game_started = False
 
+    # creating the update funcion for every file
     def update(self):
-        if self.keyboard.space and wheel.on_ground():
-            self.wheel.changeVel(Vector(0, -10))
-            #self.wheel.vel.y = -10
+        # setting up what happens when the "space" button is clicked and how the sprite behaves while not on_ground
+        if self.keyboard.space and sprite.on_ground():
+            self.sprite.changeVel(Vector(0, -10))
             global space_timer
             space_timer = 0
         if self.keyboard.space:
             space_timer += 5
+            # setting the velocity of the sprite
             if space_timer > 10:
-                #self.wheel.vel.y -= 5
-                self.wheel.changeVel(Vector(0, -5))
+                self.sprite.changeVel(Vector(0, -5))
                 space_timer = 0
-        if not self.keyboard.space and wheel.on_top():
-            self.wheel.vel.y = 1
+        # difining how the sprite behaves when it touches the top wall
+        if not self.keyboard.space and sprite.on_top():
+            self.sprite.vel.y = 1
 
         self.background.update()
-        self.wheel.update()
+        self.sprite.update()
         self.delete()
 
         clock.tick()
         if clock.transition(4):
-            wheel.frame_update()
+            sprite.frame_update()
 
+        # defining actions with the platforms in the list
         for platform in self.platform_list:
             if platform.dims[2] == "vertical":
-                if platform.hit_vertical(self.wheel) and platform not in self.not_in_game_platform:
+                # setting the action when there is a collision with a vertical platform
+                if platform.hit_vertical(self.sprite) and platform not in self.not_in_game_platform:
+                    # checks how much lives the player has
                     if lives.get_text() == "Lives: 1":
                         self.game_over = True
                         self.explosion = Explosion_spritesheet(
-                            wheel.pos.get_p())
+                            sprite.pos.get_p())
                         lives.set_text("Lives: 0")
                     else:
                         lives.set_text("Lives: 1")
             else:
-                if platform.hit_horizontal(self.wheel) and platform not in self.not_in_game_platform:
+                # setting the action when there is a collision with a horizontal platforms
+                if platform.hit_horizontal(self.sprite) and platform not in self.not_in_game_platform:
+                    # checks how much lives the player has
                     if lives.get_text() == "Lives: 1":
                         self.game_over = True
                         self.explosion = Explosion_spritesheet(
-                            wheel.pos.get_p())
+                            sprite.pos.get_p())
                         lives.set_text("Lives: 0")
                     else:
                         lives.set_text("Lives: 1")
-
+            # setting the requirements to delete a platform
             if platform.dims[4] < -210:
                 self.to_delete.append(platform)
-
+            # setting the requirements to when a platform is "out" of the game
             if platform.dest_centre[0] < CANVAS_DIMS[1] / 2.7:
                 self.not_in_game_platform.append(platform)
 
     def draw(self, canvas):
+        # checking if the game is over and the explosion spritesheet is ready
         if self.game_over and self.explosion.done():
-            # DRAW THE ENDSCREEN HERE
+            # drawing the end screen
             canvas.draw_image(endscreen_img,
                               (400, 200),
                               (800, 400),
                               (400, 200),
                               (800, 400))
-            # IF NEW GAME CLICKED MAKE self.game_over = FALSE
             canvas.draw_text(
                 'END SCREEN', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
-            canvas.draw_text('The Flyy Man travelled ' + str(self.score) +
+            # drawing how far the player traveled
+            canvas.draw_text('The Flyy Man traveled ' + str(self.score) +
                              " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Red')
+        # drawing the Game over screen
         elif self.game_over:
             self.explosion.draw(canvas)
             canvas.draw_text(
                 'GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Red')
+        # in this case - the player is still in the game
         else:
             self.background.draw(canvas)
 
+            # counter for the meters
             time_score()
             if counter % 10 == 0:
                 self.score += 1
-            #canvas.draw_text(str(self.score), pos, size, color)
+            # displaying the distance traveled
             distance.set_text("Distance: " + str(self.score) + "M")
+            # drawing the platforms
             for platform in self.platform_list:
                 platform.draw(canvas)
-            if self.wheel.on_ground():
-                self.wheel.draw(canvas)
+            # drawing the spritesheet for the hero
+            if self.sprite.on_ground():
+                self.sprite.draw(canvas)
             else:
-                self.wheel.draw_jump(canvas)
+                self.sprite.draw_jump(canvas)
+    # creating the main menu function
 
     def main_menu(self, canvas):
+        # executed when the game is not started
         if self.game_started == False:
             canvas.draw_image(main_menu_img,
                               (400, 200),
@@ -160,9 +177,11 @@ class Interaction:
             if self.keyboard.space:
                 self.game_started = True
                 self.game_restart()
+        # the game is started and the canvas is drawn
         else:
             self.draw(canvas)
 
+    # function to delete platforms that are in the to_delete list
     def delete(self):
         for platform in self.to_delete:
             self.to_delete.remove(platform)
@@ -170,22 +189,26 @@ class Interaction:
             if platform.dest_centre[0] < -210:
                 self.not_in_game_platform.remove(platform)
 
+    # function to add platforms
     def add_platform(self):
         self.platform_list.append(Laser_spritesheet())
         self.platform_count += 1
 
+    # creating the button functionality
     def button_handler(self):
         self.game_over = False
         self.game_started = False
         self.score = 0
         distance.set_text("Distance: " + str(self.score) + "M")
         lives.set_text("Lives: 2")
-        # self.game_restart()
 
+    # when the following function is called it will reset the game and the game will start from the beginning
     def game_restart(self):
         self.platform_list.clear()
         self.not_in_game_platform.clear()
         self.to_delete.clear()
+
+# function used to count the meters traveled
 
 
 def time_score():
@@ -195,12 +218,11 @@ def time_score():
 
 def game_handler(canvas):
     inter.update()
-    # inter.draw(canvas)
     inter.main_menu(canvas)
 
 
 kbd = Keyboard()
-wheel = Wheel(
+sprite = Sprite(
     SHEET_IMG,
     Vector(CANVAS_DIMS[1] / 2.7, CANVAS_DIMS[1]),
     SHEET_WIDTH, SHEET_HEIGHT,
@@ -210,7 +232,7 @@ clock = Clock()
 
 
 background = Background(Vector(800, 200))
-inter = Interaction(wheel, kbd, background, clock)
+inter = Interaction(sprite, kbd, background, clock)
 
 frame = simplegui.create_frame('Interactions', CANVAS_DIMS[0], CANVAS_DIMS[1])
 frame.set_canvas_background('#bfcf46')
