@@ -31,9 +31,6 @@ class Background:
     def update(self):
         # print(self.pos.get_p())
         self.pos.add(Vector(-5, 0))
-        # self.pos.add(self.vel)
-        # self.vel.multiply(-0.85)
         self.vel.multiply(0.9)
         if self.pos.x < 1:
-            # print("haha")
             self.pos = Vector(800, 200)  # (background_reset)
