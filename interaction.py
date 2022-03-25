@@ -128,9 +128,9 @@ class Interaction:
                               (800, 400))
             # IF NEW GAME CLICKED MAKE self.game_over = FALSE
             canvas.draw_text(
-                'GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Black')
+                'GAME OVER', (CANVAS_DIMS[0] / 5, CANVAS_DIMS[1] / 2), 50, 'Black')
             canvas.draw_text('The Flyy Man travelled ' + str(self.score) +
-                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Black')
+                             " metres!", (CANVAS_DIMS[0] / 5, 300), 30, 'Black')
         elif self.game_over:
             self.background.draw(canvas)
             for platform in self.platform_list:
@@ -142,9 +142,9 @@ class Interaction:
             time_score()
             if counter % 10 == 0:
                 self.score += 1
-            if self.score<50:
+            if self.score < 50:
                 canvas.draw_text(
-                    'Press Space to jump', (200, 380),25, 'White')
+                    'Press Space to jump', (200, 380), 25, 'White')
             #canvas.draw_text(str(self.score), pos, size, color)
             distance.set_text("Distance: " + str(self.score) + "M")
             for platform in self.platform_list:
