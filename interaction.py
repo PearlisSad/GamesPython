@@ -142,6 +142,7 @@ class Interaction:
             time_score()
             if counter % 10 == 0:
                 self.score += 1
+            # displays instructions how to play for the first 50 meters
             if self.score < 50:
                 canvas.draw_text(
                     'Press Space to jump', (200, 380), 25, 'White')
