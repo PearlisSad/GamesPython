@@ -96,7 +96,7 @@ class Interaction:
             if platform.dims[2] == "vertical":
                 if platform.hit_vertical(self.sprite) and platform not in self.not_in_game_platform:
                     if lives.get_text() == "Lives: 1":
-                        self.game_over = True
+                        self.game_over =True
                         self.explosion = Explosion_spritesheet(
                             sprite.pos.get_p())
                         lives.set_text("Lives: 0")
