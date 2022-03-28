@@ -72,13 +72,11 @@ class Interaction:
     def update(self):
         if self.keyboard.space and sprite.on_ground():
             self.sprite.changeVel(Vector(0, -10))
-            #self.sprite.vel.y = -10
             global space_timer
             space_timer = 0
         if self.keyboard.space:
             space_timer += 5
             if space_timer > 10:
-                #self.sprite.vel.y -= 5
                 self.sprite.changeVel(Vector(0, -5))
                 space_timer = 0
         if not self.keyboard.space and sprite.on_top():
