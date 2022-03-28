@@ -3,7 +3,6 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
-import random
 # importing the classes needed from the files used
 from background import *  # Background, ClockBackground
 from sprite import *  # Keyboard, Sprite, Platform, Clock
@@ -76,6 +75,7 @@ class Interaction:
             space_timer = 0
         if self.keyboard.space:
             space_timer += 5
+            # acting as gravity by constantly pulling the avatar to the ground
             if space_timer > 10:
                 self.sprite.changeVel(Vector(0, -5))
                 space_timer = 0
