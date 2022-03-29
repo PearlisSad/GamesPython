@@ -60,7 +60,6 @@ class Sprite:
             (self.radius * 2, self.radius * 2))
 
     def draw_jump(self, canvas):
-
         canvas.draw_image(
             sheet_still,
             (57, 60), (114, 120), self.pos.get_p(),
