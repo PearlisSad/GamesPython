@@ -3,7 +3,6 @@ try:
 except ImportError:
     import SimpleGUICS2Pygame.simpleguics2pygame as simplegui
 
-import random
 # importing the classes needed from the files used
 from background import *  # Background, ClockBackground
 from sprite import *  # Keyboard, Sprite, Platform, Clock
@@ -22,7 +21,7 @@ background_counter = 0
 main_menu_img = simplegui.load_image(
     'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/mainmenu.png')
 endscreen_img = simplegui.load_image(
-    'https://raw.githubusercontent.com/PearlisSad/GamesPython/main/endscreen.png')
+    'https://github.com/PearlisSad/GamesPython/blob/main/endscreen_New.jpg?raw=true')
 
 # defining canvas dimentions
 CANVAS_DIMS = (800, 400)
@@ -72,13 +71,12 @@ class Interaction:
     def update(self):
         if self.keyboard.space and sprite.on_ground():
             self.sprite.changeVel(Vector(0, -10))
-            #self.sprite.vel.y = -10
             global space_timer
             space_timer = 0
         if self.keyboard.space:
             space_timer += 5
+            # acting as gravity by constantly pulling the avatar to the ground
             if space_timer > 10:
-                #self.sprite.vel.y -= 5
                 self.sprite.changeVel(Vector(0, -5))
                 space_timer = 0
         if not self.keyboard.space and sprite.on_top():
@@ -128,9 +126,9 @@ class Interaction:
                               (800, 400))
             # IF NEW GAME CLICKED MAKE self.game_over = FALSE
             canvas.draw_text(
-                'GAME OVER', (CANVAS_DIMS[0] / 2, CANVAS_DIMS[1] / 2), 50, 'Black')
+                'GAME OVER', (CANVAS_DIMS[0] / 5, CANVAS_DIMS[1] / 2), 50, 'White')
             canvas.draw_text('The Flyy Man travelled ' + str(self.score) +
-                             " metres!", (CANVAS_DIMS[0] / 2, 300), 25, 'Black')
+                             " metres!", (CANVAS_DIMS[0] / 5, 300), 30, 'White')
         elif self.game_over:
             self.background.draw(canvas)
             for platform in self.platform_list:
@@ -142,9 +140,10 @@ class Interaction:
             time_score()
             if counter % 10 == 0:
                 self.score += 1
-            if self.score<50:
+            # displays instructions how to play for the first 50 meters
+            if self.score < 50:
                 canvas.draw_text(
-                    'Press Space to jump', (200, 380),25, 'White')
+                    'Press Space to jump', (200, 380), 25, 'White')
             #canvas.draw_text(str(self.score), pos, size, color)
             distance.set_text("Distance: " + str(self.score) + "M")
             for platform in self.platform_list:

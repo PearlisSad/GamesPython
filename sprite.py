@@ -88,6 +88,8 @@ class Sprite:
     def on_top(self):
         return self.pos.y <= self.radius
 
+# checks space key position
+
 
 class Keyboard:
     def __init__(self):
