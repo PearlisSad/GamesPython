@@ -77,6 +77,7 @@ class Laser_spritesheet:
 
     def hit_vertical(self, player):
         player_pos = player.pos
+        #return player_pos.x > self.dest_centre[0] and self.dims[3] < player_pos.y < self.dims[4]
         return player_pos.x > self.dest_centre[0] and player_pos.y > self.dims[3] and player_pos.y < self.dims[4]
 
     def hit_horizontal(self, player):

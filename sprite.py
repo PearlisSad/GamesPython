@@ -60,12 +60,7 @@ class Sprite:
             (self.radius * 2, self.radius * 2))
 
     def draw_jump(self, canvas):
-        source_centre = (
-            self.frame_width * self.frame_index[0] + self.frame_centre_x,
-            self.frame_height * self.frame_index[1] + self.frame_centre_y
-        )
 
-        source_size = (self.frame_width, self.frame_height)
         canvas.draw_image(
             sheet_still,
             (57, 60), (114, 120), self.pos.get_p(),
